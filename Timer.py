@@ -114,6 +114,15 @@ while whattodonext != "done":
     else:
         while totalcountdown != 0:
             os.system(clearorcls)
+            if totalminutes > 0 and totalseconds == 0:
+                totalseconds = 59
+                totalminutes -= 1
+            if totalhours > 0 and totalminutes == 0:
+                totalminutes = 59
+                totalhours -= 1
+            if totaldays > 0 and totalhours == 0:
+                totalhours = 23
+                totaldays -= 1
             if totaldays == 1:
                 day = "day"
             else:
@@ -142,15 +151,6 @@ while whattodonext != "done":
             totalcountdown -= 1
             secondspassed += 1
             totalseconds -= 1
-            if totalminutes > 0 and totalseconds == 0:
-                totalseconds = 59
-                totalminutes -= 1
-            if totalhours > 0 and totalminutes == 0:
-                totalminutes = 59
-                totalhours -= 1
-            if totaldays > 0 and totalhours == 0:
-                totalhours = 23
-                totaldays -= 1
             time.sleep(1)
         else:
             song = random.choice(optionalsongs)
