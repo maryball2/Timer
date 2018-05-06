@@ -52,10 +52,6 @@ def days():
     global hourspassed
     amountofdays = int(input("How many days? "))
     totaldays += amountofdays
-    amountofdays *= 24
-    amountofdays *= 60
-    amountofdays *= 60
-    totalcountdown += amountofdays
 def hours():
     global totalseconds
     global totaldays
@@ -69,9 +65,6 @@ def hours():
     global hourspassed
     amountofhours = int(input("How many hours? "))
     totalhours += amountofhours
-    amountofhours *= 60
-    amountofhours *= 60
-    totalcountdown += amountofhours
 def minutes():
     global totalseconds
     global totaldays
@@ -85,8 +78,6 @@ def minutes():
     global hourspassed
     amountofminutes = int(input("How many minutes? "))
     totalminutes += amountofminutes
-    amountofminutes *= 60
-    totalcountdown += amountofminutes
 def seconds():
     global totalseconds
     global totaldays
@@ -99,7 +90,6 @@ def seconds():
     global dayspassed
     global hourspassed
     amountofseconds = int(input("How many seconds? "))
-    totalcountdown += amountofseconds
     totalseconds += amountofseconds
 while whattodonext != "done":
     whattodonext = input("What unit of time do you want to count from? Type done if done ")
@@ -112,7 +102,7 @@ while whattodonext != "done":
     elif whattodonext == "seconds" or whattodonext == "Seconds":
         seconds()
     else:
-        while totalcountdown != 0:
+        while totaldays != 0 or totalhours != 0 or totalminutes != 0 or totalseconds != 0:
             os.system(clearorcls)
             if totalminutes > 0 and totalseconds == 0:
                 totalseconds = 59
@@ -148,8 +138,6 @@ while whattodonext != "done":
             else:
                 fulltime = [totalseconds,second]
             print(*fulltime,sep = " ")
-            totalcountdown -= 1
-            secondspassed += 1
             totalseconds -= 1
             time.sleep(1)
         else:
