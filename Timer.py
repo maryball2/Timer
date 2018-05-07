@@ -65,6 +65,15 @@ def hours():
     global hourspassed
     amountofhours = int(input("How many hours? "))
     totalhours += amountofhours
+    if totalhours >= 24:
+        totaldays += 1
+        totalhours = 0
+    if totalseconds >= 60:
+        totalseconds = 0
+        totalminutes += 1
+    if totalminutes >= 60:
+        totalminutes = 0
+        totalhours += 1
 def minutes():
     global totalseconds
     global totaldays
@@ -78,6 +87,15 @@ def minutes():
     global hourspassed
     amountofminutes = int(input("How many minutes? "))
     totalminutes += amountofminutes
+    if totalseconds >= 60:
+        totalseconds -= 60
+        totalminutes += 1
+    if totalminutes >= 60:
+        totalminutes -= 60
+        totalhours += 1
+    if totalhours >= 24:
+        totaldays += 1
+        totalhours -= 24
 def seconds():
     global totalseconds
     global totaldays
@@ -91,6 +109,12 @@ def seconds():
     global hourspassed
     amountofseconds = int(input("How many seconds? "))
     totalseconds += amountofseconds
+    if totalseconds >= 60:
+        totalseconds -= 60
+        totalminutes += 1
+    if totalminutes >= 60:
+        totalminutes -= 60
+        totalhours += 1
 while whattodonext != "done":
     whattodonext = input("What unit of time do you want to count from? Type done if done ")
     if whattodonext == "days" or whattodonext == "Days":
