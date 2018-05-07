@@ -32,6 +32,48 @@ secondspassed = 0
 minutespassed = 0
 hourspassed = 0
 dayspassed = 0
+if totalseconds == 60:
+    totalminutes += 1
+    totalseconds = 0
+if totalminutes == 60:
+    totalhours += 1
+    totalminutes = 0
+if totalhours == 24:
+    totaldays += 1
+    totalhours = 0
+if totaldays > 0 and totalhours < 0:
+    totalhours = 23
+    totaldays -= 1
+if totalhours > 0 and totalminutes < 0:
+    totalminutes = 59
+    totalhours -= 1
+if totalminutes > 0 and totalseconds < 0:
+    totalseconds = 59
+    totalminutes -= 1
+if totaldays == 1:
+    day = "day"
+else:
+    day = "days"
+if totalhours == 1:
+    hour = "hour"
+else:
+    hour = "hours"
+if totalminutes == 1:
+    minute = "minute"
+else:
+    minute = "minutes"
+if totalseconds == 1:
+    second = "second"
+else:
+    second = "seconds"
+if totaldays >= 1:
+    fulltime = [totaldays,day,totalhours,hour,totalminutes,minute,totalseconds,second]
+elif totalhours >= 1:
+    fulltime = [totalhours,hour,totalminutes,minute,totalseconds,second]
+elif totalminutes >= 1:
+    fulltime = [totalminutes,minute,totalseconds,second]
+else:
+    fulltime = [totalseconds,second]
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #THESE ARE THE PATHS TO MY MUSIC DIRECTORY CHANGE THESE TO YOUR DIRECTOR LEAVE THE /*mp3* AND /*wav* SO IT WORKS
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -128,16 +170,156 @@ def seconds():
         totalminutes -= 60
         totalhours += 1
     recalculate()
+def minusdays():
+    global totalseconds
+    global totaldays
+    global totalhours
+    global totalminutes
+    global totalcountdown
+    global secondspassed
+    global hourspassed
+    global minutespassed
+    global dayspassed
+    global hourspassed
+    print(totaldays,day,"is the amount how much do you want to subtract")
+    howmuchtosubtract = int(input("How much do you want to subtract? "))
+    totaldays -= howmuchtosubtract
+    if totaldays < 0:
+        totaldays = 0
+    recalculate()
+def minushours():
+    global totalseconds
+    global totaldays
+    global totalhours
+    global totalminutes
+    global totalcountdown
+    global secondspassed
+    global hourspassed
+    global minutespassed
+    global dayspassed
+    global hourspassed
+    print(totalhours,hour,"is the amount how much do you want to subtract")
+    howmuchtosubtract = int(input("How much do you want to subtract? "))
+    totalhours -= howmuchtosubtract
+    if totalhours < 0:
+        totalminutes = 0
+    recalculate()
+def minusminutes():
+    global totalseconds
+    global totaldays
+    global totalhours
+    global totalminutes
+    global totalcountdown
+    global secondspassed
+    global hourspassed
+    global minutespassed
+    global dayspassed
+    global hourspassed
+    print(totalminutes,minute,"is the amount how much do you want to subtract")
+    howmuchtosubtract = int(input("How much do you want to subtract? "))
+    totalminutes -= howmuchtosubtract
+    if totalminutes < 0:
+        totalminutes = 0
+    recalculate()
+def minusseconds():
+    global totalseconds
+    global totaldays
+    global totalhours
+    global totalminutes
+    global totalcountdown
+    global secondspassed
+    global hourspassed
+    global minutespassed
+    global dayspassed
+    global hourspassed
+    print(totalseconds,second,"is the amount how much do you want to subtract")
+    howmuchtosubtract = int(input("How much do you want to subtract? "))
+    totalseconds -= howmuchtosubtract
+    if totalseconds < 0:
+        totalseconds = 0
+    recalculate()
 while whattodonext != "done":
-    whattodonext = input("What unit of time do you want to count from? Type done if done ")
+    print("Type the unit to modify, check, or done ")
+    whattodonext = input("What do you want to do? ")
+    if totalseconds == 60:
+        totalminutes += 1
+        totalseconds = 0
+    if totalminutes == 60:
+        totalhours += 1
+        totalminutes = 0
+    if totalhours == 24:
+        totaldays += 1
+        totalhours = 0
+    if totaldays > 0 and totalhours < 0:
+        totalhours = 23
+        totaldays -= 1
+    if totalhours > 0 and totalminutes < 0:
+        totalminutes = 59
+        totalhours -= 1
+    if totalminutes > 0 and totalseconds < 0:
+        totalseconds = 59
+        totalminutes -= 1
+    if totaldays == 1:
+        day = "day"
+    else:
+        day = "days"
+    if totalhours == 1:
+        hour = "hour"
+    else:
+        hour = "hours"
+    if totalminutes == 1:
+        minute = "minute"
+    else:
+        minute = "minutes"
+    if totalseconds == 1:
+        second = "second"
+    else:
+        second = "seconds"
+    if totaldays >= 1:
+        fulltime = [totaldays,day,totalhours,hour,totalminutes,minute,totalseconds,second]
+    elif totalhours >= 1:
+        fulltime = [totalhours,hour,totalminutes,minute,totalseconds,second]
+    elif totalminutes >= 1:
+        fulltime = [totalminutes,minute,totalseconds,second]
+    else:
+        fulltime = [totalseconds,second]
     if whattodonext == "days" or whattodonext == "Days" or whattodonext == "day" or whattodonext == "Day":
-        days()
+        os.system(clearorcls)
+        addorminus = input("Do you want to add or subtract days ")
+        if addorminus == "add" or addorminus == "Add":
+            days()
+        else:
+            minusdays()
+        os.system(clearorcls)
     elif whattodonext == "hours" or whattodonext == "Hours" or whattodonext == "hour" or whattodonext == "Hour":
-        hours()
+        os.system(clearorcls)
+        addorminus = input("Do you want to add or subtract hours ")
+        if addorminus == "add" or addorminus == "Add":
+            hours()
+        else:
+            minushours()
+        os.system(clearorcls)
     elif whattodonext == "minutes" or whattodonext == "Minutes" or whattodonext == "minute" or whattodonext == "Minute":
-        minutes()
+        os.system(clearorcls)
+        addorminus = input("Do you want to add or subtract minutes ")
+        if addorminus == "add" or addorminus == "Add":
+            minutes()
+        else:
+            minusminutes()
+        os.system(clearorcls)
     elif whattodonext == "seconds" or whattodonext == "Seconds" or whattodonext == "second" or whattodonext == "Second":
-        seconds()
+        os.system(clearorcls)
+        addorminus = input("Do you want to add or subtract seconds? ")
+        if addorminus == "add" or addorminus == "Add":
+            seconds()
+        else:
+            minusseconds()
+        os.system(clearorcls)
+    elif whattodonext == "Check" or whattodonext == "check":
+        os.system(clearorcls)
+        print(*fulltime,sep = " ")
+        input("Press enter to put in a new number")
+        os.system(clearorcls)
     else:
         while totaldays != 0 or totalhours != 0 or totalminutes != 0 or totalseconds != 0:
             os.system(clearorcls)
