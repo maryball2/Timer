@@ -184,6 +184,18 @@ while whattodonext != "done":
                 fulltime = [totalseconds,second]
             print(*fulltime,sep = " ")
             totalseconds -= 1
+            if totaldays > 0 and totalhours == 0 and totalminutes == 0 and totalseconds < 0:
+                totaldays -= 1
+                totalhours = 23
+                totalminutes = 59
+                totalseconds = 59
+            if totalhours > 0 and totalminutes == 0 and totalseconds < 0:
+                totalhours -= 1
+                totalminutes = 59
+                totalseconds = 59
+            if totalminutes > 0 and totalseconds == -1:
+                totalminutes -= 1
+                totalseconds = 59
             time.sleep(1)
         else:
             song = random.choice(optionalsongs)
