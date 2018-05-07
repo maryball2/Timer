@@ -127,15 +127,16 @@ def seconds():
     if totalminutes >= 60:
         totalminutes -= 60
         totalhours += 1
+    recalculate()
 while whattodonext != "done":
     whattodonext = input("What unit of time do you want to count from? Type done if done ")
-    if whattodonext == "days" or whattodonext == "Days":
+    if whattodonext == "days" or whattodonext == "Days" or whattodonext == "day" or whattodonext == "Day":
         days()
-    elif whattodonext == "hours" or whattodonext == "Hours":
+    elif whattodonext == "hours" or whattodonext == "Hours" or whattodonext == "hour" or whattodonext == "Hour":
         hours()
-    elif whattodonext == "minutes" or whattodonext == "Minutes":
+    elif whattodonext == "minutes" or whattodonext == "Minutes" or whattodonext == "minute" or whattodonext == "Minute":
         minutes()
-    elif whattodonext == "seconds" or whattodonext == "Seconds":
+    elif whattodonext == "seconds" or whattodonext == "Seconds" or whattodonext == "second" or whattodonext == "Second":
         seconds()
     else:
         while totaldays != 0 or totalhours != 0 or totalminutes != 0 or totalseconds != 0:
