@@ -35,6 +35,10 @@ optionalsongs += (glob.glob(dir_path + "/Songs/*.mp3"))
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
+def clear_screen():
+    os.system(clearorcls)
+
+
 def recalculate():
     global totalseconds
     global totaldays
@@ -256,45 +260,45 @@ while whattodonext != "done":
     else:
         fulltime = [totalseconds, second]
     if whattodonext == "days" or whattodonext == "Days" or whattodonext == "day" or whattodonext == "Day":
-        os.system(clearorcls)
+        clear_screen()
         addorminus = input("Do you want to add or subtract days ")
         if addorminus == "add" or addorminus == "Add":
             days()
         else:
             minusdays()
-        os.system(clearorcls)
+        clear_screen()
     elif whattodonext == "hours" or whattodonext == "Hours" or whattodonext == "hour" or whattodonext == "Hour":
-        os.system(clearorcls)
+        clear_screen()
         addorminus = input("Do you want to add or subtract hours ")
         if addorminus == "add" or addorminus == "Add":
             hours()
         else:
             minushours()
-        os.system(clearorcls)
+        clear_screen()
     elif whattodonext == "minutes" or whattodonext == "Minutes" or whattodonext == "minute" or whattodonext == "Minute":
-        os.system(clearorcls)
+        clear_screen()
         addorminus = input("Do you want to add or subtract minutes ")
         if addorminus == "add" or addorminus == "Add":
             minutes()
         else:
             minusminutes()
-        os.system(clearorcls)
+        clear_screen()
     elif whattodonext == "seconds" or whattodonext == "Seconds" or whattodonext == "second" or whattodonext == "Second":
-        os.system(clearorcls)
+        clear_screen()
         addorminus = input("Do you want to add or subtract seconds? ")
         if addorminus == "add" or addorminus == "Add":
             seconds()
         else:
             minusseconds()
-        os.system(clearorcls)
+        clear_screen()
     elif whattodonext == "Check" or whattodonext == "check":
-        os.system(clearorcls)
+        clear_screen()
         print(*fulltime, sep=" ")
         input("Press enter to put in a new number")
-        os.system(clearorcls)
+        clear_screen()
     else:
         while totaldays != 0 or totalhours != 0 or totalminutes != 0 or totalseconds != 0:
-            os.system(clearorcls)
+            clear_screen()
             if totalseconds == 60:
                 totalminutes += 1
                 totalseconds = 0
