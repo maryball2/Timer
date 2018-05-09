@@ -13,16 +13,14 @@ if sys.platform == "linux" or sys.platform == "posix":
     clearorcls = "clear"
 else:
     clearorcls = "cls"
+
 whattodonext = "Not done"
-totaldays = 0
-totalhours = 0
-totalminutes = 0
-totalseconds = 0
-totalcountdown = 0
-secondspassed = 0
-minutespassed = 0
-hourspassed = 0
-dayspassed = 0
+
+total_seconds = 0
+MINUTE_SECONDS = 60
+HOUR_SECONDS = 60*60
+DAY_SECONDS = 24*60*60
+
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # THESE ARE THE PATHS TO MY MUSIC DIRECTORY CHANGE THESE TO YOUR DIRECTOR LEAVE THE /*mp3* AND /*wav* SO IT WORKS
@@ -39,27 +37,53 @@ def clear_screen():
     os.system(clearorcls)
 
 
-def recalculate():
-    global totalseconds
-    global totaldays
-    global totalhours
-    global totalminutes
-    global totalcountdown
-    global secondspassed
-    global hourspassed
-    global minutespassed
-    global dayspassed
-    global hourspassed
-    while totalseconds >= 60 or totalminutes >= 60 or totalhours >= 24:
-        if totalseconds >= 60:
-            totalseconds -= 60
-            totalminutes += 1
-        if totalminutes >= 60:
-            totalminutes -= 60
-            totalhours += 1
-        if totalhours >= 24:
-            totaldays += 1
-            totalhours -= 24
+def convert_seconds_to_time(seconds):
+    if seconds < 0:
+        negative = True
+        seconds = abs(seconds)
+    else:
+        negative = False
+    days, remainder = divmod(seconds, 86400)
+    hours, remainder = divmod(remainder, 3600)
+    minutes, remainder = divmod(remainder, 60)
+    seconds = int(remainder)
+    return {
+        'negative': negative,
+        'days': days,
+        'hours': hours,
+        'minutes': minutes,
+        'seconds': seconds,
+    }
+
+
+def get_formatted_time(seconds=0, minutes=0, hours=0, days=0, negative=False):
+    def sub_string_formatter(value, name):
+        return '{value} {name}{s}'.format(value=value,
+                                          name=name,
+                                          s='s' if value != 1 else '')
+
+    def final_string_formatter(time_list, negative):
+        text = ' '.join(time_list)
+        if negative:
+            return '-' + text
+        else:
+            return text
+
+    days_string = sub_string_formatter(days, 'day')
+    hours_string = sub_string_formatter(hours, 'hour')
+    minutes_string = sub_string_formatter(minutes, 'minute')
+    seconds_string = sub_string_formatter(seconds, 'second')
+
+    if days:
+        time_list = [days_string, hours_string, minutes_string, seconds_string]
+    elif hours:
+        time_list = [hours_string, minutes_string, seconds_string]
+    elif minutes:
+        time_list = [minutes_string, seconds_string]
+    else:
+        time_list = [seconds_string]
+    final_string = final_string_formatter(time_list, negative)
+    return final_string
 
 
 def playsound(soundfile):  # This is how you play the music
@@ -69,196 +93,56 @@ def playsound(soundfile):  # This is how you play the music
 
 
 def days():
-    global totalseconds
-    global totaldays
-    global totalhours
-    global totalminutes
-    global totalcountdown
-    global secondspassed
-    global hourspassed
-    global minutespassed
-    global dayspassed
-    global hourspassed
+    global total_seconds
     amountofdays = int(input("How many days? "))
-    totaldays += amountofdays
-    recalculate()
+    total_seconds += amountofdays * DAY_SECONDS
 
 
 def hours():
-    global totalseconds
-    global totaldays
-    global totalhours
-    global totalminutes
-    global totalcountdown
-    global secondspassed
-    global hourspassed
-    global minutespassed
-    global dayspassed
-    global hourspassed
+    global total_seconds
     amountofhours = int(input("How many hours? "))
-    totalhours += amountofhours
-    recalculate()
+    total_seconds += amountofhours * HOUR_SECONDS
 
 
 def minutes():
-    global totalseconds
-    global totaldays
-    global totalhours
-    global totalminutes
-    global totalcountdown
-    global secondspassed
-    global hourspassed
-    global minutespassed
-    global dayspassed
-    global hourspassed
+    global total_seconds
     amountofminutes = int(input("How many minutes? "))
-    totalminutes += amountofminutes
-    recalculate()
+    total_seconds += amountofminutes * MINUTE_SECONDS
 
 
 def seconds():
-    global totalseconds
-    global totaldays
-    global totalhours
-    global totalminutes
-    global totalcountdown
-    global secondspassed
-    global hourspassed
-    global minutespassed
-    global dayspassed
-    global hourspassed
+    global total_seconds
     amountofseconds = int(input("How many seconds? "))
-    totalseconds += amountofseconds
-    if totalseconds >= 60:
-        totalseconds -= 60
-        totalminutes += 1
-    if totalminutes >= 60:
-        totalminutes -= 60
-        totalhours += 1
-    recalculate()
+    total_seconds += amountofseconds
 
 
 def minusdays():
-    global totalseconds
-    global totaldays
-    global totalhours
-    global totalminutes
-    global totalcountdown
-    global secondspassed
-    global hourspassed
-    global minutespassed
-    global dayspassed
-    global hourspassed
-    print(totaldays, day, "is the amount how much do you want to subtract")
+    global total_seconds
     howmuchtosubtract = int(input("How much do you want to subtract? "))
-    totaldays -= howmuchtosubtract
-    if totaldays < 0:
-        totaldays = 0
-    recalculate()
+    total_seconds -= howmuchtosubtract * DAY_SECONDS
 
 
 def minushours():
-    global totalseconds
-    global totaldays
-    global totalhours
-    global totalminutes
-    global totalcountdown
-    global secondspassed
-    global hourspassed
-    global minutespassed
-    global dayspassed
-    global hourspassed
-    print(totalhours, hour, "is the amount how much do you want to subtract")
+    global total_seconds
     howmuchtosubtract = int(input("How much do you want to subtract? "))
-    totalhours -= howmuchtosubtract
-    if totalhours < 0:
-        totalminutes = 0
-    recalculate()
+    total_seconds -= howmuchtosubtract * HOUR_SECONDS
 
 
 def minusminutes():
-    global totalseconds
-    global totaldays
-    global totalhours
-    global totalminutes
-    global totalcountdown
-    global secondspassed
-    global hourspassed
-    global minutespassed
-    global dayspassed
-    global hourspassed
-    print(totalminutes, minute, "is the amount how much do you want to subtract")
+    global total_seconds
     howmuchtosubtract = int(input("How much do you want to subtract? "))
-    totalminutes -= howmuchtosubtract
-    if totalminutes < 0:
-        totalminutes = 0
-    recalculate()
+    total_seconds -= howmuchtosubtract * MINUTE_SECONDS
 
 
 def minusseconds():
-    global totalseconds
-    global totaldays
-    global totalhours
-    global totalminutes
-    global totalcountdown
-    global secondspassed
-    global hourspassed
-    global minutespassed
-    global dayspassed
-    global hourspassed
-    print(totalseconds, second, "is the amount how much do you want to subtract")
+    global total_seconds
     howmuchtosubtract = int(input("How much do you want to subtract? "))
-    totalseconds -= howmuchtosubtract
-    if totalseconds < 0:
-        totalseconds = 0
-    recalculate()
+    total_seconds -= howmuchtosubtract
 
 
 while whattodonext != "done":
     print("Type the unit to modify, check, or done ")
     whattodonext = input("What do you want to do? ")
-    if totalseconds == 60:
-        totalminutes += 1
-        totalseconds = 0
-    if totalminutes == 60:
-        totalhours += 1
-        totalminutes = 0
-    if totalhours == 24:
-        totaldays += 1
-        totalhours = 0
-    if totaldays > 0 and totalhours < 0:
-        totalhours = 23
-        totaldays -= 1
-    if totalhours > 0 and totalminutes < 0:
-        totalminutes = 59
-        totalhours -= 1
-    if totalminutes > 0 and totalseconds < 0:
-        totalseconds = 59
-        totalminutes -= 1
-    if totaldays == 1:
-        day = "day"
-    else:
-        day = "days"
-    if totalhours == 1:
-        hour = "hour"
-    else:
-        hour = "hours"
-    if totalminutes == 1:
-        minute = "minute"
-    else:
-        minute = "minutes"
-    if totalseconds == 1:
-        second = "second"
-    else:
-        second = "seconds"
-    if totaldays >= 1:
-        fulltime = [totaldays, day, totalhours, hour, totalminutes, minute, totalseconds, second]
-    elif totalhours >= 1:
-        fulltime = [totalhours, hour, totalminutes, minute, totalseconds, second]
-    elif totalminutes >= 1:
-        fulltime = [totalminutes, minute, totalseconds, second]
-    else:
-        fulltime = [totalseconds, second]
     if whattodonext == "days" or whattodonext == "Days" or whattodonext == "day" or whattodonext == "Day":
         clear_screen()
         addorminus = input("Do you want to add or subtract days ")
@@ -293,68 +177,18 @@ while whattodonext != "done":
         clear_screen()
     elif whattodonext == "Check" or whattodonext == "check":
         clear_screen()
-        print(*fulltime, sep=" ")
+        time_dict = convert_seconds_to_time(total_seconds)
+        formatted_time = get_formatted_time(**time_dict)
+        print(formatted_time)
         input("Press enter to put in a new number")
         clear_screen()
     else:
-        while totaldays != 0 or totalhours != 0 or totalminutes != 0 or totalseconds != 0:
+        while total_seconds > 0:
             clear_screen()
-            if totalseconds == 60:
-                totalminutes += 1
-                totalseconds = 0
-            if totalminutes == 60:
-                totalhours += 1
-                totalminutes = 0
-            if totalhours == 24:
-                totaldays += 1
-                totalhours = 0
-            if totaldays > 0 and totalhours < 0:
-                totalhours = 23
-                totaldays -= 1
-            if totalhours > 0 and totalminutes < 0:
-                totalminutes = 59
-                totalhours -= 1
-            if totalminutes > 0 and totalseconds < 0:
-                totalseconds = 59
-                totalminutes -= 1
-            if totaldays == 1:
-                day = "day"
-            else:
-                day = "days"
-            if totalhours == 1:
-                hour = "hour"
-            else:
-                hour = "hours"
-            if totalminutes == 1:
-                minute = "minute"
-            else:
-                minute = "minutes"
-            if totalseconds == 1:
-                second = "second"
-            else:
-                second = "seconds"
-            if totaldays >= 1:
-                fulltime = [totaldays, day, totalhours, hour, totalminutes, minute, totalseconds, second]
-            elif totalhours >= 1:
-                fulltime = [totalhours, hour, totalminutes, minute, totalseconds, second]
-            elif totalminutes >= 1:
-                fulltime = [totalminutes, minute, totalseconds, second]
-            else:
-                fulltime = [totalseconds, second]
-            print(*fulltime, sep=" ")
-            totalseconds -= 1
-            if totaldays > 0 and totalhours == 0 and totalminutes == 0 and totalseconds < 0:
-                totaldays -= 1
-                totalhours = 23
-                totalminutes = 59
-                totalseconds = 59
-            if totalhours > 0 and totalminutes == 0 and totalseconds < 0:
-                totalhours -= 1
-                totalminutes = 59
-                totalseconds = 59
-            if totalminutes > 0 and totalseconds == -1:
-                totalminutes -= 1
-                totalseconds = 59
+            time_dict = convert_seconds_to_time(total_seconds)
+            formatted_time = get_formatted_time(**time_dict)
+            print(formatted_time)
+            total_seconds -= 1
             time.sleep(1)
         else:
             song = random.choice(optionalsongs)
