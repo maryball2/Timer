@@ -1,13 +1,14 @@
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#Title: My own personal timer
-#Author: Riley Carpenter
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Title: My own personal timer
+# Author: Riley Carpenter
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import time
 from pygame import mixer
 import os
 import glob
 import sys
 import random
+
 global totalseconds
 global totaldays
 global totalhours
@@ -67,22 +68,25 @@ if totalseconds == 1:
 else:
     second = "seconds"
 if totaldays >= 1:
-    fulltime = [totaldays,day,totalhours,hour,totalminutes,minute,totalseconds,second]
+    fulltime = [totaldays, day, totalhours, hour, totalminutes, minute, totalseconds, second]
 elif totalhours >= 1:
-    fulltime = [totalhours,hour,totalminutes,minute,totalseconds,second]
+    fulltime = [totalhours, hour, totalminutes, minute, totalseconds, second]
 elif totalminutes >= 1:
-    fulltime = [totalminutes,minute,totalseconds,second]
+    fulltime = [totalminutes, minute, totalseconds, second]
 else:
-    fulltime = [totalseconds,second]
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#THESE ARE THE PATHS TO MY MUSIC DIRECTORY CHANGE THESE TO YOUR DIRECTOR LEAVE THE /*mp3* AND /*wav* SO IT WORKS
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    fulltime = [totalseconds, second]
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# THESE ARE THE PATHS TO MY MUSIC DIRECTORY CHANGE THESE TO YOUR DIRECTOR LEAVE THE /*mp3* AND /*wav* SO IT WORKS
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 dir_path = os.path.dirname(os.path.realpath(__file__))
 optionalsongs = (glob.glob(dir_path + "/Alarm Mark II/Songs/*.wav*"))
 optionalsongs += (glob.glob(dir_path + "/Songs/*.mp3"))
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#THESE ARE THE PATHS TO MY MUSIC DIRECTORY CHANGE THESE TO YOUR DIRECTOR LEAVE THE /*mp3* AND /*wav* SO IT WORKS
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# THESE ARE THE PATHS TO MY MUSIC DIRECTORY CHANGE THESE TO YOUR DIRECTOR LEAVE THE /*mp3* AND /*wav* SO IT WORKS
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
 def recalculate():
     global totalseconds
     global totaldays
@@ -104,10 +108,14 @@ def recalculate():
         if totalhours >= 24:
             totaldays += 1
             totalhours -= 24
-def playsound(soundfile): #This is how you play the music
+
+
+def playsound(soundfile):  # This is how you play the music
     mixer.init()
     mixer.music.load(soundfile)
     mixer.music.play(-1)
+
+
 def days():
     global totalseconds
     global totaldays
@@ -122,6 +130,8 @@ def days():
     amountofdays = int(input("How many days? "))
     totaldays += amountofdays
     recalculate()
+
+
 def hours():
     global totalseconds
     global totaldays
@@ -136,6 +146,8 @@ def hours():
     amountofhours = int(input("How many hours? "))
     totalhours += amountofhours
     recalculate()
+
+
 def minutes():
     global totalseconds
     global totaldays
@@ -150,6 +162,8 @@ def minutes():
     amountofminutes = int(input("How many minutes? "))
     totalminutes += amountofminutes
     recalculate()
+
+
 def seconds():
     global totalseconds
     global totaldays
@@ -170,6 +184,8 @@ def seconds():
         totalminutes -= 60
         totalhours += 1
     recalculate()
+
+
 def minusdays():
     global totalseconds
     global totaldays
@@ -181,12 +197,14 @@ def minusdays():
     global minutespassed
     global dayspassed
     global hourspassed
-    print(totaldays,day,"is the amount how much do you want to subtract")
+    print(totaldays, day, "is the amount how much do you want to subtract")
     howmuchtosubtract = int(input("How much do you want to subtract? "))
     totaldays -= howmuchtosubtract
     if totaldays < 0:
         totaldays = 0
     recalculate()
+
+
 def minushours():
     global totalseconds
     global totaldays
@@ -198,12 +216,14 @@ def minushours():
     global minutespassed
     global dayspassed
     global hourspassed
-    print(totalhours,hour,"is the amount how much do you want to subtract")
+    print(totalhours, hour, "is the amount how much do you want to subtract")
     howmuchtosubtract = int(input("How much do you want to subtract? "))
     totalhours -= howmuchtosubtract
     if totalhours < 0:
         totalminutes = 0
     recalculate()
+
+
 def minusminutes():
     global totalseconds
     global totaldays
@@ -215,12 +235,14 @@ def minusminutes():
     global minutespassed
     global dayspassed
     global hourspassed
-    print(totalminutes,minute,"is the amount how much do you want to subtract")
+    print(totalminutes, minute, "is the amount how much do you want to subtract")
     howmuchtosubtract = int(input("How much do you want to subtract? "))
     totalminutes -= howmuchtosubtract
     if totalminutes < 0:
         totalminutes = 0
     recalculate()
+
+
 def minusseconds():
     global totalseconds
     global totaldays
@@ -232,12 +254,14 @@ def minusseconds():
     global minutespassed
     global dayspassed
     global hourspassed
-    print(totalseconds,second,"is the amount how much do you want to subtract")
+    print(totalseconds, second, "is the amount how much do you want to subtract")
     howmuchtosubtract = int(input("How much do you want to subtract? "))
     totalseconds -= howmuchtosubtract
     if totalseconds < 0:
         totalseconds = 0
     recalculate()
+
+
 while whattodonext != "done":
     print("Type the unit to modify, check, or done ")
     whattodonext = input("What do you want to do? ")
@@ -276,13 +300,13 @@ while whattodonext != "done":
     else:
         second = "seconds"
     if totaldays >= 1:
-        fulltime = [totaldays,day,totalhours,hour,totalminutes,minute,totalseconds,second]
+        fulltime = [totaldays, day, totalhours, hour, totalminutes, minute, totalseconds, second]
     elif totalhours >= 1:
-        fulltime = [totalhours,hour,totalminutes,minute,totalseconds,second]
+        fulltime = [totalhours, hour, totalminutes, minute, totalseconds, second]
     elif totalminutes >= 1:
-        fulltime = [totalminutes,minute,totalseconds,second]
+        fulltime = [totalminutes, minute, totalseconds, second]
     else:
-        fulltime = [totalseconds,second]
+        fulltime = [totalseconds, second]
     if whattodonext == "days" or whattodonext == "Days" or whattodonext == "day" or whattodonext == "Day":
         os.system(clearorcls)
         addorminus = input("Do you want to add or subtract days ")
@@ -317,7 +341,7 @@ while whattodonext != "done":
         os.system(clearorcls)
     elif whattodonext == "Check" or whattodonext == "check":
         os.system(clearorcls)
-        print(*fulltime,sep = " ")
+        print(*fulltime, sep=" ")
         input("Press enter to put in a new number")
         os.system(clearorcls)
     else:
@@ -358,14 +382,14 @@ while whattodonext != "done":
             else:
                 second = "seconds"
             if totaldays >= 1:
-                fulltime = [totaldays,day,totalhours,hour,totalminutes,minute,totalseconds,second]
+                fulltime = [totaldays, day, totalhours, hour, totalminutes, minute, totalseconds, second]
             elif totalhours >= 1:
-                fulltime = [totalhours,hour,totalminutes,minute,totalseconds,second]
+                fulltime = [totalhours, hour, totalminutes, minute, totalseconds, second]
             elif totalminutes >= 1:
-                fulltime = [totalminutes,minute,totalseconds,second]
+                fulltime = [totalminutes, minute, totalseconds, second]
             else:
-                fulltime = [totalseconds,second]
-            print(*fulltime,sep = " ")
+                fulltime = [totalseconds, second]
+            print(*fulltime, sep=" ")
             totalseconds -= 1
             if totaldays > 0 and totalhours == 0 and totalminutes == 0 and totalseconds < 0:
                 totaldays -= 1
